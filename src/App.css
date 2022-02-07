@@ -1,38 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
+  /* max-width: 500px; */
+  height: 100vh;
+  max-height: 900px;
+}
+
+.main {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.month {
+  height: 100%;
+  scroll-snap-align: center;
+}
+
+.day {
+  border: 0.5px solid #aaa;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.day:hover {
+  background-color: #ddd;
+}
+
+.Month-title {
+  text-transform: capitalize;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.calendar-header {
+  font-weight: bold;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.calendar-body {
+  text-align: right;
+  width: 100vw;
+  height: 85%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.first-day {
+  grid-column-start: var(--first-day-start);
+}
+
+.owners {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: flex-start;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chip {
+  text-align: center;
+  font-size: .7rem;
+  background-color: rgb(30, 79, 143);
+  border-radius: .2rem;
+  padding: 2% 5%;
 }
