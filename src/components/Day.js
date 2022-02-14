@@ -1,16 +1,13 @@
 export default function Day(props) {
-    const { day, owner, startsOn, year } = props
+    const { day, owner, startsOn, year, handleClick } = props
 
-    // return day===0
-    // ? <div className='first-day day' style={{ '--first-day-start': startsOn }}>{day + 1}</div>
-    // : <div className='day'>{day + 1}</div>
-
-    return <div
+    return <div onClick={() => handleClick(day, owner)}
         className='first-day day'
-        style={day === 0 ? { '--first-day-start': startsOn } : null}>
-        <div>{day + 1}</div>
+        style={day === 1 ? { '--first-day-start': startsOn } : null}>
+        <div>{day}</div>
         <div className="owners">{
-        (owner && year) ? owner.map(o => <span className="chip">{o}</span>) : null
+        // (owner && year) ? <span className="chip">{owner}</span> : null
+        (owner && year) ? owner.map(o => <span key={o} className="chip">{o}</span>) : null
         }</div>
     </div>
 }

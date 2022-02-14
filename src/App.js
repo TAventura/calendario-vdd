@@ -1,21 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Month from './components/Month';
-import ReservationsContext from './context/ReservationsContext';
+import Modal from './components/Modal/Modal.js'
+import LoginForm from './components/Login/LoginForm';
+import Logout from './components/Logout';
 
 const now = new Date()
-// const INITIAL_RESERVATIONS = [
-//   {
-//     owner: "Tomas",
-//     initialDate: new Date(now),
-//     endDate: new Date(now.setDate(now.getDate() + 5))
-//   },
-//   {
-//     owner: "Lucas",
-//     initialDate: new Date(now.setDate(now.getDate() + 10)),
-//     endDate: new Date(now.setDate(now.getDate() + 2))
-//   }
-// ]
 
 const initialYear = now.getFullYear()
 const locale = 'es'
@@ -28,6 +18,8 @@ const intlWeekDay = new Intl.DateTimeFormat(locale, {
 })
 
 function App() {
+
+  const [showModal, setShowModal] = useState(true)
   const [year, setYear] = useState(initialYear)
   // const {reservations, setReservations} = useContext(ReservationsContext)
 
@@ -48,33 +40,33 @@ function App() {
     const startsOn = new Date(year, monthKey, 1).getDay();
 
     return {
-      monthKey: monthKey + 1,
+      monthKey: monthKey,
       monthName,
       daysOfMonth,
       startsOn
     }
   })
 
-  useEffect(() => {
-    // setReservations(INITIAL_RESERVATIONS)
-  }, [])
-
-  const handleSumbit = (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault()
-    setYear(evt.target.year.value)
+    setYear(parseInt(evt.target.year.value))
+  }
+
+  const handleClose = () => {
+    setShowModal(false)
   }
 
   return (
     <div className='App'>
-      <div>
-        <span>Calendario Anual de reservas villa del dique</span>
-        <span>Elegir año</span>
-        <form onSubmit={handleSumbit}>
-          <input name='year' defaultValue={initialYear} />
-          <button>Aceptar</button>
-        </form>
-      </div>
+      <Logout setShowModal={setShowModal} />
+      <div className='header'>Calendario Anual de reservas villa del dique</div>
+      <span className='m5'>Elegir año</span>
+      <form onSubmit={handleSubmit}>
+        <input name='year' defaultValue={initialYear} />
+        <button>Aceptar</button>
+      </form>
       <div className='main'>
+
         {
           calendar.map(month => {
             return (
@@ -87,6 +79,7 @@ function App() {
           })
         }
       </div>
+      {showModal && <Modal onClose={handleClose}><LoginForm handleClose={handleClose} /></Modal>}
     </div>
   );
 }

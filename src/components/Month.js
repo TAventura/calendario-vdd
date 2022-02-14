@@ -5,14 +5,14 @@ import Day from './Day'
 
 export default function Month(props) {
     const { monthKey, monthName, daysOfMonth, startsOn, weekDayNames, year } = props
-    const { reservedDays } = useReservedDay({ monthKey, year })
+    const { reservedDays, handleSelection } = useReservedDay({ monthKey, year })
 
-    var arrayOfDays = [...Array(daysOfMonth).keys()]
+    var arrayOfDays = [...Array(daysOfMonth).keys()].map(day => day+1)
 
     arrayOfDays = arrayOfDays.map(day => {
-        const coincidence = reservedDays.find(reservation => reservation.day === day)
+        const coincidence = reservedDays.find(reservedDay => new Date(reservedDay.date).getDate() === day)
         if (coincidence) {
-            console.log(coincidence)
+            // console.log(coincidence)
             return coincidence
         } else {
             return day
@@ -31,11 +31,11 @@ export default function Month(props) {
             }</ol>
             <ol className='calendar-body'>{
                 arrayOfDays.map((day) => {
-                    return <Day key={day.day ? day.day : day}
-                    day={day.day ? day.day : day}
-                    owner={day.owner ? day.owner : null}
-                    year={year === day.year ? day.year : false}
-                    startsOn={startsOn} />
+                    return <Day key={day.date ? new Date(day.date).getDate() : day}
+                        day={day.date ? new Date(day.date).getDate() : day}
+                        owner={day.owner ? day.owner : null}
+                        year={year === new Date(day?.date).getFullYear() ? new Date(day.date).getFullYear() : null}
+                        startsOn={startsOn} handleClick={handleSelection} />
                 })
             }</ol>
         </div>

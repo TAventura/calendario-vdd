@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ReservationsContextProvider } from './context/ReservationsContext';
+import { UserContextProvider } from './context/UserContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReservationsContextProvider>
+    <UserContextProvider>
       <App />
-    </ReservationsContextProvider>
+    </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
